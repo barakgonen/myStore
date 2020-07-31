@@ -21,7 +21,7 @@ public class Order {
 		orderedItems = itemsInOrder;
 	}
 	
-	private double getTotalPrice() {
+	public double getTotalPrice() {
 		return orderedItems.stream().mapToDouble(x->x.getProductPrice()).sum();
 	}
 	

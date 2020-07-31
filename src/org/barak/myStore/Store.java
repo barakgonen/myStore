@@ -15,13 +15,11 @@ import java.util.Optional;
 
 public class Store {
 	private HashMap<Product, Integer> productsAtStore;
-	private ReportsHandler reportsHandler;
 	private Collection<Order> orders;
 	
 	public Store() {
 		productsAtStore = new HashMap<Product, Integer>();
 		orders = new ArrayList<Order>();
-		reportsHandler = new ReportsHandler(this);
 	}
 	
 	public void addNewItem(Product product) {
@@ -101,6 +99,15 @@ public class Store {
 	
 	public Collection<Order> getAllOrders(){
 		return orders;
+	}
+	
+	public void printProfitsReports() {
+		System.out.println("PROFITS:");
+		double sum = 0;
+		orders.forEach(o -> System.out.println(o));
+		for (Order o : orders)
+			sum += o.getTotalPrice();
+		System.out.println("Total profit is: " + sum);	
 	}
 	
 	private void _deleteItem(Entry<Product, Integer> stockedProduct) {

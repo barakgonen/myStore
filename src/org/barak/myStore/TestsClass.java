@@ -27,6 +27,7 @@ public final class TestsClass {
 		tester.assertInserProductStockWorksAsExpected();
 		tester.assertUpdateAmountWorks();
 		tester.assertHandlingTwoProducts();
+		tester.assertProfitsReportIsCorrect();
 		tester.printMessage("Total tests: " + tester.totalTests + ", Passed: " + tester.numberOfPassedTests + ", Failed: " + tester.numberOfFailedTests);
 		return tester.totalTests == tester.numberOfPassedTests;
 	}
@@ -36,7 +37,7 @@ public final class TestsClass {
 			System.out.println(str);
 	}
 	
-	private void assertSimpleTest(int expectedValue, int actualValue, String error, String testName) {
+	private void assertSimpleTest(double expectedValue, double actualValue, String error, String testName) {
 		if (actualValue != expectedValue) {
 			System.out.println(error + ". Expected: " + expectedValue + ", Actual: " + actualValue);
 			numberOfFailedTests++;
@@ -188,5 +189,29 @@ public final class TestsClass {
 		assertSimpleTest(0, myStore.getAvailableProducts().size(), "Wrong number of available products", "test update available quantity works");
 		assertSimpleTest(2, myStore.getUnAvailableProducts().size(), "Wrong number of unavailable products", "test update available quantity works");
 		assertSimpleTest(0, myStore.getAllOrders().size(), "Number of orders is different", "Assert orders stays empty when there are no new orders");
+	}
+	
+	private void assertProfitsReportIsCorrect() {
+		Store myStore = new Store();
+		double carPrice = 231212.12;
+		double tvPrice = 23;
+		Product tv = new Product("Tv", 12345, tvPrice);
+		Product car = new Product("Car", 123, carPrice);
+		HashMap<Product, Integer> firstOrder = new HashMap<>();
+		firstOrder.put(tv, 10);
+		firstOrder.put(car, 15);
+		HashMap<Product, Integer> secondOrder = new HashMap<>();
+		secondOrder.put(car, 13);
+		HashMap<Product, Integer> thirdOrder = new HashMap<>();
+		thirdOrder.put(tv, 3);
+		myStore.addNewItem(tv, 13);
+		myStore.addNewItem(car);
+		myStore.updateAvailableStock(car.getProductName(), 19);
+		myStore.makeNewOrder(firstOrder);
+		myStore.makeNewOrder(secondOrder);
+		myStore.makeNewOrder(thirdOrder);
+//		myStore.printProfitsReports();
+		assertSimpleTest(carPrice * 28 + tvPrice * 13, 6474238.359999999, "calculationError", "");
+		assertSimpleTest(3, myStore.getAllOrders().size(), "Number of orders is wrong", "test orders and print profits report");
 	}
 }

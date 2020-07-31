@@ -5,8 +5,7 @@ public class Main {
 		boolean quietMode = true;
 		if (TestsClass.runAllTests(quietMode)) {
 			System.out.println("BG");
-		}
-		else {
+		} else {
 			System.out.println("Running tests failed, not starting app");
 		}
 	}
