@@ -1,10 +1,13 @@
 package org.barak.myStore;
 
 public class Main {
-
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println("Hello!");
+		boolean quietMode = true;
+		if (TestsClass.runAllTests(quietMode)) {
+			System.out.println("BG");
+		}
+		else {
+			System.out.println("Running tests failed, not starting app");
+		}
 	}
-
 }

@@ -4,23 +4,29 @@ import java.util.Collection;
 import java.util.Date;
 /**
  * @author Barak
- * This class represents single oreder from my store
+ * This class represents single order from my store
  */
-import java.util.HashMap;
+
 import java.util.Random;
+
 public class Order {
 	private final long orderNumber;
-	private final Date purchaseDate;
+	private final Date orderDate;
 	private Collection<Product> orderedItems;
 	
-	public Order(Collection<Product> orderedItems) {
+	public Order(Collection<Product> itemsInOrder) {
 		Random rnd = new Random();
 		orderNumber = rnd.nextInt();
-		purchaseDate = new Date();
-		orderedItems = orderedItems;
+		orderDate = new Date();
+		orderedItems = itemsInOrder;
 	}
 	
-	public int getTotalPrice() {
-		return 
+	private double getTotalPrice() {
+		return orderedItems.stream().mapToDouble(x->x.getProductPrice()).sum();
+	}
+	
+	@Override
+	public String toString() {
+		return "Order number: " + orderNumber + ", order date: " + orderDate + ", total price: " + getTotalPrice();
 	}
 }

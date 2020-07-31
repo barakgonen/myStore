@@ -26,14 +26,6 @@ public class StockedProduct {
 		return availableUnits;
 	}
 	
-	public String getProductName() {
-		return product.getProductName();
-	}
-	
-	public long getProductCode() {
-		return product.getProductCode();
-	}
-
 	public Product getProduct() {
 		return product;
 	}
