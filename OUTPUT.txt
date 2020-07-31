@@ -1,0 +1,27 @@
+Available products: []
+Unavailable products: []
+All Orders: []
+Thre are all empty as expected :-}
+Adding products to the store
+Lets look at our store products now:
+Available products: [Name: Chair, Code: 123, Price: 10.0, availableUnits: 45, Name: laptop, Code: 112, Price: 200.0, availableUnits: 20]
+Unavailable products: [Name: Table, Code: 1234, Price: 40.0, availableUnits: 0, Name: Phone, Code: 12, Price: 100.0, availableUnits: 0]
+Lets look at our store products after the update:
+Available products: [Name: Chair, Code: 123, Price: 10.0, availableUnits: 45, Name: Table, Code: 1234, Price: 40.0, availableUnits: 100, Name: laptop, Code: 112, Price: 200.0, availableUnits: 20, Name: Phone, Code: 12, Price: 100.0, availableUnits: 2]
+Unavailable products: []
+Available products: [Name: Table, Code: 1234, Price: 40.0, availableUnits: 100, Name: laptop, Code: 112, Price: 200.0, availableUnits: 20, Name: Phone, Code: 12, Price: 100.0, availableUnits: 2]
+Unavailable products: []
+Chairs has gone, as expected
+Order has been completed! 
+Order number: 914390723, order date: Fri Jul 31 16:40:25 IDT 2020, total price: 500.0
+Available products: [Name: Table, Code: 1234, Price: 40.0, availableUnits: 90, Name: laptop, Code: 112, Price: 200.0, availableUnits: 20, Name: Phone, Code: 12, Price: 100.0, availableUnits: 1]
+Unavailable products: []
+Total incomes:
+PROFITS:
+Order number: 914390723, order date: Fri Jul 31 16:40:25 IDT 2020, total price: 500.0
+Total profit is: 500.0
+Available products:
+Available products: [Name: Table, Code: 1234, Price: 40.0, availableUnits: 90, Name: laptop, Code: 112, Price: 200.0, availableUnits: 20, Name: Phone, Code: 12, Price: 100.0, availableUnits: 1]
+Unavailable products: (printing available and unavailable to see differences
+Available products: [Name: Table, Code: 1234, Price: 40.0, availableUnits: 90, Name: Phone, Code: 12, Price: 100.0, availableUnits: 1]
+Unavailable products: [Name: laptop, Code: 112, Price: 200.0, availableUnits: 0]

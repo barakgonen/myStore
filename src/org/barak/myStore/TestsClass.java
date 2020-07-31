@@ -204,9 +204,9 @@ public final class TestsClass {
 		secondOrder.put(car, 13);
 		HashMap<Product, Integer> thirdOrder = new HashMap<>();
 		thirdOrder.put(tv, 3);
-		myStore.addNewItem(tv, 13);
+		myStore.addNewItem(tv, 18);
 		myStore.addNewItem(car);
-		myStore.updateAvailableStock(car.getProductName(), 19);
+		myStore.updateAvailableStock(car.getProductName(), 29);
 		myStore.makeNewOrder(firstOrder);
 		myStore.makeNewOrder(secondOrder);
 		myStore.makeNewOrder(thirdOrder);

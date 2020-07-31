@@ -71,6 +71,9 @@ public class Store {
 			});
 			Order order = new Order(flatProductsList);
 			orders.add(order);
+			
+			for (Product p : flatProductsList)
+				productsAtStore.replace(p, productsAtStore.get(p), productsAtStore.get(p) -1);
 			return order;
 		}
 		return null;
@@ -112,7 +115,7 @@ public class Store {
 	
 	private void _deleteItem(Entry<Product, Integer> stockedProduct) {
 		if (stockedProduct != null)
-			productsAtStore.remove(stockedProduct);
+			productsAtStore.remove(stockedProduct.getKey());
 	}
 		
 	private void _updateAvailableStock(Optional<Entry<Product, Integer>> productToUpdate, int newAvailability) {
