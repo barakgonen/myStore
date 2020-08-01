@@ -1,4 +1,4 @@
-package org.barak.myStore;
+package org.barak.myStore.server;
 
 import java.util.Collection;
 import java.util.Date;
@@ -8,6 +8,8 @@ import java.util.Date;
  */
 
 import java.util.Random;
+
+import org.barak.myStore.common.Product;
 
 public class Order {
 	private final long orderNumber;

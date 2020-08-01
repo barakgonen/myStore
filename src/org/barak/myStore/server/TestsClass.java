@@ -1,6 +1,8 @@
-package org.barak.myStore;
+package org.barak.myStore.server;
 
 import java.util.HashMap;
+
+import org.barak.myStore.common.Product;
 
 public final class TestsClass {
 	private boolean isQueitMode;

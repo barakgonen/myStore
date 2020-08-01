@@ -1,4 +1,6 @@
-package org.barak.myStore;
+package org.barak.myStore.server;
+
+import org.barak.myStore.common.Product;
 
 /**
  * @author Barak

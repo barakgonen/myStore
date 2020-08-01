@@ -1,4 +1,4 @@
-package org.barak.myStore;
+package org.barak.myStore.common;
 
 /**
  * @author Barak

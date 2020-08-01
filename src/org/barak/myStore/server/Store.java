@@ -1,9 +1,12 @@
-package org.barak.myStore;
+package org.barak.myStore.server;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map.Entry;
+
+import org.barak.myStore.common.Product;
+
 import java.util.Optional;
 
 /**
