@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import org.barak.myStore.common.Product;
+import org.barak.myStore.common.StockedProduct;
 
 import java.util.Optional;
 

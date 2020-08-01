@@ -6,10 +6,10 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println("Hi im client");
+		System.out.println("Welcome to my store!");
 		int port = Constants.SERVER_PORT;
 		String address = Constants.SERVER_IP;
-		StoreClient myStoreClient = new StoreClient(address, port);
+		StoreClient.startClient(address, port);
 	}
 
 }
