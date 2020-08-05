@@ -1,14 +1,22 @@
 package org.barak.myStore.server;
 
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.util.Collection;
 import java.util.HashMap;
 
 import org.barak.myStore.common.Constants;
 import org.barak.myStore.common.Product;
+import org.barak.myStore.common.StockedProduct;
+
+import java.sql.Statement;
+import java.sql.Connection;
 
 public class Main {
 	public static void runStoreExample() {
 		// New store creation
-		Store myStore = new Store();
+		InMemoryDataWriterReader inMemryDataWriterReader = new InMemoryDataWriterReader();
+		Store myStore = new Store(inMemryDataWriterReader);
 		
 		// Verify it has created without any product and order
 		System.out.println("Available products: " + myStore.getAvailableProducts());
@@ -86,10 +94,15 @@ public class Main {
 //			runStoreExample();
 			// Creating an instance of store server
 			int port = Constants.SERVER_PORT;
-			Store myStore = new Store();
-			StoreServer myStoreServer = new StoreServer(port, myStore);
+			
+			InMemoryDataWriterReader dbReader = new InMemoryDataWriterReader();
+//			DbConnectionDataWriterReader dbReader = new DbConnectionDataWriterReader();
+			
+			Store myStore = new Store(dbReader);
+			StoreServer server = new StoreServer(port, myStore);
 		} else {
 			System.out.println("Running tests failed, not starting app");
 		}
+		System.out.println("BG");
 	}
 }

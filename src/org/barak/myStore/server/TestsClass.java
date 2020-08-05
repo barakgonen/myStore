@@ -52,14 +52,16 @@ public final class TestsClass {
 	}
 	
 	private void assertStoreCreatedEmpty() {
-		Store myStore = new Store();
+		InMemoryDataWriterReader inMemryDataWriterReader = new InMemoryDataWriterReader();
+		Store myStore = new Store(inMemryDataWriterReader);
 		assertSimpleTest(0, myStore.getAllOrders().size(), "Number of orders is different", "Assert orders created as empty list");
 		assertSimpleTest(0, myStore.getAvailableProducts().size(), "Number of available products is different", "Assert available items list is empty when store created");
 		assertSimpleTest(0, myStore.getUnAvailableProducts().size(), "Number of unavailable products is different", "Assert unavailable items list is empty when store created");
 	}
 	
 	private void assertDeleteNonExistingValuesDoesNotCrashApp() {
-		Store myStore = new Store();
+		InMemoryDataWriterReader inMemryDataWriterReader = new InMemoryDataWriterReader();
+		Store myStore = new Store(inMemryDataWriterReader);
 		Product tv = new Product("Tv", 12345, 23);
 		myStore.deleteProduct(213);
 		numberOfPassedTests += 1;
@@ -73,7 +75,8 @@ public final class TestsClass {
 	}
 	
 	private void assertUpdateNonExistingItemsDoesNotCrashApp() {
-		Store myStore = new Store();
+		InMemoryDataWriterReader inMemryDataWriterReader = new InMemoryDataWriterReader();
+		Store myStore = new Store(inMemryDataWriterReader);
 		Product tv = new Product("Tv", 12345, 23);
 		myStore.updateAvailableStock(tv, 14);
 		numberOfPassedTests += 1;
@@ -87,7 +90,8 @@ public final class TestsClass {
 	}
 	
 	private void assertUpdateNonExistingProductDoesNotAddThemToStore() {
-		Store myStore = new Store();
+		InMemoryDataWriterReader inMemryDataWriterReader = new InMemoryDataWriterReader();
+		Store myStore = new Store(inMemryDataWriterReader);
 		Product tv = new Product("Tv", 12345, 23);
 		myStore.updateAvailableStock(tv, 14);
 		assertSimpleTest(0, myStore.getAvailableProducts().size(), "Number of available products is different", "Assert available items list stays empty when update unexisting product");
@@ -103,7 +107,8 @@ public final class TestsClass {
 	}
 	
 	private void assertOrderToNonExistingItemFails() {
-		Store myStore = new Store();
+		InMemoryDataWriterReader inMemryDataWriterReader = new InMemoryDataWriterReader();
+		Store myStore = new Store(inMemryDataWriterReader);
 		HashMap<Product, Integer> productsToOrder = new HashMap<>();
 		Product tv = new Product("Tv", 12345, 23);
 		productsToOrder.put(tv, 23);
@@ -116,7 +121,8 @@ public final class TestsClass {
 	}
 	
 	private void assertOrderCantBeHandledNotHandled() {
-		Store myStore = new Store();
+		InMemoryDataWriterReader inMemryDataWriterReader = new InMemoryDataWriterReader();
+		Store myStore = new Store(inMemryDataWriterReader);
 		HashMap<Product, Integer> productsToOrder = new HashMap<>();
 		Product tv = new Product("Tv", 12345, 23);
 		Product car = new Product("Tv", 232, 1);
@@ -132,7 +138,8 @@ public final class TestsClass {
 	}
 	
 	private void assertInserProductWithNoQuantitySetsAsUnavailable() {
-		Store myStore = new Store();
+		InMemoryDataWriterReader inMemryDataWriterReader = new InMemoryDataWriterReader();
+		Store myStore = new Store(inMemryDataWriterReader);
 		Product tv = new Product("Tv", 12345, 23);
 		myStore.addNewItem(tv);
 		assertSimpleTest(0, myStore.getAvailableProducts().size(), "Wrong number of items at store", "test add item works");
@@ -140,7 +147,8 @@ public final class TestsClass {
 	}
 	
 	private void assertInserProductStockWorksAsExpected() {
-		Store myStore = new Store();
+		InMemoryDataWriterReader inMemryDataWriterReader = new InMemoryDataWriterReader();
+		Store myStore = new Store(inMemryDataWriterReader);
 		Product tv = new Product("Tv", 12345, 23);
 		myStore.addNewItem(tv, 4);
 		assertSimpleTest(1, myStore.getAvailableProducts().size(), "Wrong number of items at store", "test add item works");
@@ -148,7 +156,8 @@ public final class TestsClass {
 	}
 	
 	private void assertUpdateAmountWorks() {
-		Store myStore = new Store();
+		InMemoryDataWriterReader inMemryDataWriterReader = new InMemoryDataWriterReader();
+		Store myStore = new Store(inMemryDataWriterReader);
 		Product tv = new Product("Tv", 12345, 23);
 		myStore.addNewItem(tv, 2);
 		assertSimpleTest(1, myStore.getAvailableProducts().size(), "Wrong number of available products", "test update available quantity works");
@@ -163,7 +172,8 @@ public final class TestsClass {
 	}
 	
 	private void assertHandlingTwoProducts() {
-		Store myStore = new Store();
+		InMemoryDataWriterReader inMemryDataWriterReader = new InMemoryDataWriterReader();
+		Store myStore = new Store(inMemryDataWriterReader);
 		Product tv = new Product("Tv", 12345, 23);
 		Product car = new Product("Car", 123, 231212.12);
 		myStore.addNewItem(tv, 2);
@@ -194,7 +204,8 @@ public final class TestsClass {
 	}
 	
 	private void assertProfitsReportIsCorrect() {
-		Store myStore = new Store();
+		InMemoryDataWriterReader inMemryDataWriterReader = new InMemoryDataWriterReader();
+		Store myStore = new Store(inMemryDataWriterReader);
 		double carPrice = 231212.12;
 		double tvPrice = 23;
 		Product tv = new Product("Tv", 12345, tvPrice);

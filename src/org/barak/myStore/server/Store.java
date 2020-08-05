@@ -18,112 +18,68 @@ import java.util.Optional;
  */
 
 public class Store {
-	private HashMap<Product, Integer> productsAtStore;
-	private Collection<Order> orders;
-	
-	public Store() {
-		productsAtStore = new HashMap<Product, Integer>();
-		orders = new ArrayList<Order>();
+	private IDataWriterReader dataHandler;
+	public Store(IDataWriterReader data) {
+		dataHandler = data;
 	}
 	
 	public void addNewItem(Product product) {
-		productsAtStore.put(product, 0);
+		dataHandler.storeProduct(new StockedProduct(product, 0));
 	}
 	
 	public void addNewItem(Product product, int availability) {
-		productsAtStore.put(product, availability);
+		dataHandler.storeProduct(new StockedProduct(product, availability));
 	}
 	
 	public void updateAvailableStock(String productName, int newAvailability) {
-		_updateAvailableStock(productsAtStore.entrySet().stream().filter(f-> f.getKey().getProductName().equals(productName)).findFirst(), newAvailability);
+		dataHandler.setProductAvailability(productName, newAvailability);
 	}
 	
 	public void updateAvailableStock(long productCode, int newAvailability) {
-		_updateAvailableStock(productsAtStore.entrySet().stream().filter(f-> f.getKey().getProductCode() == productCode).findFirst(), newAvailability);
+		dataHandler.setProductAvailability(productCode, newAvailability);
 	}
 		
 	public void updateAvailableStock(Product product, int newAvailability) {
-		_updateAvailableStock(productsAtStore.entrySet().stream().filter(f-> f.getKey().equals(product)).findFirst(), newAvailability);
+		dataHandler.setProductAvailability(product, newAvailability);
 	}
 	
 	public void deleteProduct(String productName) {
-		_deleteItem(productsAtStore.entrySet().stream().findFirst().filter(s -> s.getKey().getProductName().equals(productName)).orElse(null));
+		dataHandler.removeProduct(productName);
 	}
 	
 	public void deleteProduct(long productCode) {
-		_deleteItem(productsAtStore.entrySet().stream().findFirst().filter(s -> s.getKey().getProductCode() == productCode).orElse(null));
+		dataHandler.removeProduct(productCode);
 	}
 	
 	public void deleteProduct(Product product) {
-		_deleteItem(productsAtStore.entrySet().stream().findFirst().filter(s -> s.getKey().equals(product)).orElse(null));
-	}
-	
-	public void printAllAvailableProducts() {
-		System.out.println("Available products are: ");
-		if (productsAtStore.isEmpty())
-			System.out.println("Store is empty");
-		else
-			productsAtStore.forEach((s, v) -> s.toString());
-	}
-	
-	public Order makeNewOrder(HashMap<Product, Integer> productsInOrder) {
-		ArrayList<Product> flatProductsList = new ArrayList<Product>();
-		if (canDeliverOrder(productsInOrder)) {
-			productsInOrder.forEach((k, v) -> {
-				for (int i = 0; i < v; i++) 
-					flatProductsList.add(k);
-			});
-			Order order = new Order(flatProductsList);
-			orders.add(order);
-			
-			for (Product p : flatProductsList)
-				productsAtStore.replace(p, productsAtStore.get(p), productsAtStore.get(p) -1);
-			return order;
-		}
-		return null;
-	}
-	
-	private boolean canDeliverOrder(HashMap<Product, Integer> productsInOrder) {
-		if (productsAtStore.isEmpty())
-			return false;
-		for (Entry<Product, Integer> product : productsInOrder.entrySet())
-			if (productsAtStore.containsKey(product.getKey()) && productsAtStore.get(product.getKey()) < product.getValue())
-					return false;
-		return true;
+		dataHandler.removeProduct(product);
 	}
 		
+	public Order makeNewOrder(HashMap<Product, Integer> productsInOrder) {
+		return dataHandler.makeNewOrder(productsInOrder);
+	}
+			
 	public Collection<StockedProduct> getAvailableProducts() {
-		Collection<StockedProduct> availableProducts = new ArrayList<StockedProduct>();
-		productsAtStore.entrySet().stream().filter(s -> s.getValue() > 0).forEach(a -> availableProducts.add(new StockedProduct(a.getKey(), a.getValue())));
-		return availableProducts;
+		return dataHandler.getAvailableProducts();
 	}
 	
 	public Collection<StockedProduct> getUnAvailableProducts(){
-		Collection<StockedProduct> unavailableProducts = new ArrayList<StockedProduct>();
-		productsAtStore.entrySet().stream().filter(s -> s.getValue() == 0).forEach(a -> unavailableProducts.add(new StockedProduct(a.getKey(), a.getValue())));
-		return unavailableProducts;
+		return dataHandler.getUnAvailableProducts();
 	}
 	
 	public Collection<Order> getAllOrders(){
-		return orders;
+		return dataHandler.getAllOrders();
 	}
 	
 	public void printProfitsReports() {
 		System.out.println("PROFITS:");
 		double sum = 0;
-		orders.forEach(o -> System.out.println(o));
-		for (Order o : orders)
+		Collection<Order> allOrders = dataHandler.getAllOrders();
+		allOrders.forEach(o -> System.out.println(o));
+		for (Order o : allOrders)
 			sum += o.getTotalPrice();
 		System.out.println("Total profit is: " + sum);	
 	}
 	
-	private void _deleteItem(Entry<Product, Integer> stockedProduct) {
-		if (stockedProduct != null)
-			productsAtStore.remove(stockedProduct.getKey());
-	}
-		
-	private void _updateAvailableStock(Optional<Entry<Product, Integer>> productToUpdate, int newAvailability) {
-		if (productToUpdate.isPresent())
-			productsAtStore.put(productToUpdate.get().getKey(), newAvailability);
-	}
+
 }
